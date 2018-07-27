@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create my work</title>
+</head>
+<body>
+<h1>Create my work</h1>
+<p>
+    <a href="/myworks/">My work list</a>
+</p>
+<h2>Delete my work</h2>
+<form th:object="${mywork}" method="post">
+
+    <table>
+        <tr>
+            <td>Cong viec:</td>
+            <td><p type="text" th:text="${mywork.name}"></p></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="delete my work"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

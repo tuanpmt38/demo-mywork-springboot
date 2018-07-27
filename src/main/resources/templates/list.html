@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create my work</title>
+</head>
+<body>
+<h1>List my work</h1>
+<p>
+    <a th:href="@{/myworks/create}">create my work</a>
+</p>
+
+<table border="1">
+
+    <tr>
+        <th>stt</th>
+        <th>Danh sach cong viec</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <th:block th:each="myworks, inner : ${mywork}">
+    <tr>
+        <td th:text="${inner.count}"></td>
+        <td th:text="${myworks.name}"></td>
+        <td >
+            <a th:href="@{/myworks/__${myworks.id}__/delete}">delete</a>
+        </td>
+        <td >
+            <a th:href="@{/myworks/__${myworks.id}__/edit}">edit</a>
+        </td>
+    </tr>
+    </th:block>
+</table>
+</body>
+</html>
