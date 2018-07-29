@@ -3,6 +3,7 @@ package vn.shippo.demomywork.service.impl;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,6 +28,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public boolean existEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        return (user != null);
     }
 
     @Override

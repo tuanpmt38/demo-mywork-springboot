@@ -4,15 +4,15 @@ package vn.shippo.demomywork.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import vn.shippo.demomywork.model.User;
 import vn.shippo.demomywork.service.UserService;
+import vn.shippo.demomywork.validation.UserValidator;
 
 
 @Controller
@@ -39,23 +39,20 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
-        ModelAndView modelAndView = new ModelAndView();
+    public ModelAndView saveUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
+        new UserValidator(userService).validate(user, bindingResult);
         User userExists = userService.findUserByEmail(user.getEmail());
         if (userExists != null) {
             bindingResult
                     .rejectValue("email", "error.user",
                             "There is already a user registered with the email provided");
         }
-        if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("redirect:/login");
-        } else {
+        if (!bindingResult.hasFieldErrors()){
             userService.saveUser(user);
-            modelAndView.addObject("successMessage", "User has been registered successfully");
-            modelAndView.addObject("user", new User());
-            modelAndView.setViewName("registration");
-
+            ModelAndView modelAndView = new ModelAndView("redirect:/login");
+            return modelAndView;
         }
+        ModelAndView modelAndView = new ModelAndView("/registration");
         return modelAndView;
     }
 
