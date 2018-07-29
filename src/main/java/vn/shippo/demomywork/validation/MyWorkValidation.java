@@ -1,15 +1,12 @@
 package vn.shippo.demomywork.validation;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import vn.shippo.demomywork.model.MyWork;
 import vn.shippo.demomywork.service.MyWorkService;
 
-@Component
 public class MyWorkValidation implements Validator {
 
     private MyWorkService myWorkService;

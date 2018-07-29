@@ -3,7 +3,11 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>login</title>
+    <title>Spring Security Tutorial</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -12,8 +16,8 @@
 </form>
 
 <div class="container">
-    <form th:action="@{/login}" method="POST" class="form-signin">
-        <h3 class="form-signin-heading" th:text="Welcome"></h3>
+    <form th:action="@{/login}" method="POST" class="form-signin col-md-4 col-md-offset-4">
+        <h3 class="form-signin-heading text-center" th:text="Welcome"></h3>
         <br/>
 
         <input type="text" id="email" name="email"  th:placeholder="Email"

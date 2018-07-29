@@ -35,6 +35,7 @@ public class MyWorkController {
 
         ModelAndView modelAndView = new ModelAndView("create");
         new MyWorkValidation(myWorkService).validate(myWork, bindingResult);
+
         if(bindingResult.hasFieldErrors()){
             return modelAndView;
         }
