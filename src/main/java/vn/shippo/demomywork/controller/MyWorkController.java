@@ -22,7 +22,6 @@ import java.util.Optional;
 public class MyWorkController {
 
     private MyWorkService myWorkService;
-
     @Autowired
     public MyWorkController(MyWorkService myWorkService){
         this.myWorkService = myWorkService;
