@@ -31,30 +31,10 @@ public class MyWorkController {
         this.userService = userService;
     }
 
-//    public User getUserAuthenticated() {
-//
-//        UserPrincipal userPrincipal = getUserPrincipal();
-//        String userPrincipalId = userPrincipal.getEmail();
-//        User currentUser = userService.findUserByEmail(userPrincipalId);
-//        return currentUser;
-//
-//    }
-
-//    public UserPrincipal getUserPrincipal(){
-//
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-//        return userPrincipal;
-//
-//    }
-
     @GetMapping("/")
     public ModelAndView getAllByUserId(Pageable pageable){
 
         ModelAndView modelAndView = new ModelAndView("list");
-//        User user = getUserAuthenticated();
-//        Page<MyWork> myWorks = myWorkService.findAllByUser(user,pageable);
-
         Iterable<MyWork> myWorks = myWorkService.findAll();
         modelAndView.addObject("mywork", myWorks);
         return modelAndView;
