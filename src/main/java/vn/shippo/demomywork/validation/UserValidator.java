@@ -38,10 +38,6 @@ public class UserValidator implements Validator{
             errors.rejectValue("email", "email.exists" );
         }
 
-//        if(email.matches(EMAIL_REGEX)){
-//            errors.rejectValue("email", "email.error" );
-//        }
-
         if (password.length() < 5 || password.length() > 20){
             errors.rejectValue("password", "password.length");
         }

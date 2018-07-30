@@ -1,6 +1,8 @@
 package vn.shippo.demomywork.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -21,10 +23,41 @@ import java.util.Optional;
 @RequestMapping("/myworks")
 public class MyWorkController {
 
+    private UserService userService;
     private MyWorkService myWorkService;
     @Autowired
-    public MyWorkController(MyWorkService myWorkService){
+    public MyWorkController(MyWorkService myWorkService, UserService userService){
         this.myWorkService = myWorkService;
+        this.userService = userService;
+    }
+
+//    public User getUserAuthenticated() {
+//
+//        UserPrincipal userPrincipal = getUserPrincipal();
+//        String userPrincipalId = userPrincipal.getEmail();
+//        User currentUser = userService.findUserByEmail(userPrincipalId);
+//        return currentUser;
+//
+//    }
+
+//    public UserPrincipal getUserPrincipal(){
+//
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+//        return userPrincipal;
+//
+//    }
+
+    @GetMapping("/")
+    public ModelAndView getAllByUserId(Pageable pageable){
+
+        ModelAndView modelAndView = new ModelAndView("list");
+//        User user = getUserAuthenticated();
+//        Page<MyWork> myWorks = myWorkService.findAllByUser(user,pageable);
+
+        Iterable<MyWork> myWorks = myWorkService.findAll();
+        modelAndView.addObject("mywork", myWorks);
+        return modelAndView;
     }
 
     @GetMapping("/create")
@@ -50,24 +83,13 @@ public class MyWorkController {
 
     }
 
-    @GetMapping("/")
-    public ModelAndView listMyWork(){
-
-        Iterable<MyWork> myWorks = myWorkService.findAll();
-        ModelAndView modelAndView = new ModelAndView("list");
-        modelAndView.addObject("mywork", myWorks);
-        return modelAndView;
-    }
-
     @GetMapping("/{id}/delete")
     public ModelAndView deleteForm(@PathVariable("id") Long id){
         ModelAndView modelAndView = new ModelAndView("delete");
         Optional<MyWork> myWork = myWorkService.findById(id);
 
         if(myWork.isPresent()){
-            MyWork delMyWork = myWork.get();
-            delMyWork.getName();
-            modelAndView.addObject("mywork", delMyWork);
+            modelAndView.addObject("mywork", myWork.get());
         }
 
         return modelAndView;
@@ -84,11 +106,11 @@ public class MyWorkController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("edit");
         Optional<MyWork> myWork = myWorkService.findById(id);
+
         if(myWork.isPresent()){
-            MyWork myworkSave = myWork.get();
-            myworkSave.getName();
-            modelAndView.addObject("mywork", myworkSave);
+            modelAndView.addObject("mywork", myWork.get());
         }
+
         return modelAndView;
     }
 
@@ -100,6 +122,5 @@ public class MyWorkController {
         modelAndView.addObject("message","update successfully");
         return modelAndView;
     }
-
 
 }

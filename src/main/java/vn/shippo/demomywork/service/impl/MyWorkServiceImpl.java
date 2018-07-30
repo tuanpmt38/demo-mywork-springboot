@@ -1,9 +1,12 @@
 package vn.shippo.demomywork.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.shippo.demomywork.model.MyWork;
+import vn.shippo.demomywork.model.User;
 import vn.shippo.demomywork.repository.MyWorkRepository;
 import vn.shippo.demomywork.service.MyWorkService;
 
@@ -46,4 +49,16 @@ public class MyWorkServiceImpl implements MyWorkService {
         MyWork myWork = myWorkRepository.findByName(name);
         return (myWork !=null);
     }
+
+    @Override
+    public Iterable<MyWork> findAllByUser(User user) {
+        return myWorkRepository.findAllByUser(user);
+    }
+
+    @Override
+    public Page<MyWork> findAllByUser(User user, Pageable pageable) {
+        return myWorkRepository.findAllByUser(user, pageable);
+    }
+
+
 }

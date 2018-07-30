@@ -12,10 +12,27 @@ public class MyWork {
 
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public MyWork(){}
 
     public MyWork(String name) {
         this.name = name;
+    }
+
+    public MyWork(String name, User user) {
+        this.name = name;
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {

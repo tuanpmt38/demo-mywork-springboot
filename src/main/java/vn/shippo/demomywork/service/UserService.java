@@ -3,6 +3,7 @@ package vn.shippo.demomywork.service;
 import vn.shippo.demomywork.model.User;
 
 
+
 public interface UserService {
 
      User findUserByEmail(String email);
@@ -10,5 +11,6 @@ public interface UserService {
      void saveUser(User user);
 
      boolean existEmail(String email);
+
 
 }

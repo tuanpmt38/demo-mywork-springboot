@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 import org.springframework.data.annotation.Transient;
 
@@ -18,6 +19,7 @@ public class User {
     private Long id;
 
     @Column(name = "email")
+    @Email
     private String email;
 
     @Column(name = "password")
@@ -34,16 +36,16 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-//    public List<MyWork> getMyWorks() {
-//        return myWorks;
-//    }
-//
-//    public void setMyWorks(List<MyWork> myWorks) {
-//        this.myWorks = myWorks;
-//    }
-//
-//    @OneToMany(mappedBy = "user")
-//    private List<MyWork> myWorks;
+    @OneToMany(mappedBy = "user")
+    private List<MyWork> myWorks;
+
+    public List<MyWork> getMyWorks() {
+        return myWorks;
+    }
+
+    public void setMyWorks(List<MyWork> myWorks) {
+        this.myWorks = myWorks;
+    }
 
     public Long getId() {
         return id;
